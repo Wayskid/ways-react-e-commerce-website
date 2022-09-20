@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Items from "./components/Items";
+import NavBar from "./components/NavBar";
 
-function App() {
+export default function App() {
+
+  const [ lightDark, setLightDark ] = useState(false)
+  const [ cartItemsNum, setcartItemsNum ] = useState(0)
+
+  function handleChange() {
+    setLightDark(!lightDark)
+  }
+
+  const backgroundBlack = {
+    backgroundColor: "#03071e"
+  }
+
+  const backgroundLight = {
+    backgroundColor: "#f7e6d7"
+  }
+
+  const fontColorBlack = {
+    color: "#03071e"
+  }
+
+  const fontColorLight = {
+    color: "#f1f2f2"
+  }
+
+  //Add To Cart
+
+  function handleAddToCart(year, screen, item, price) {
+    console.log(item, screen, year, price);
+    setcartItemsNum(prevNum=> prevNum + 1)
+  }
+
+  
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="containerBody" style={lightDark ? backgroundBlack : backgroundLight}>
+        <NavBar 
+          lightDark= {lightDark}
+          handleChange= {handleChange}
+          fontColorBlack= {fontColorBlack}
+          fontColorLight= {fontColorLight}
+          cartItemsNum= {cartItemsNum}
+        />
+        <Items
+          fontColorBlack= {fontColorBlack}
+          fontColorLight= {fontColorLight} 
+          lightDark= {lightDark} 
+          handleAddToCart= {handleAddToCart} 
+        />
     </div>
   );
 }
-
-export default App;
